@@ -8,13 +8,41 @@ constants:
 phases:
   - name: build
     steps:
-      - name: InstallPackage
+      - name: InstallGit
         action: ExecuteBash
         inputs:
           commands:
-            - sudo yum install -y git, wget
+            - yum install -y git
+
+    - name: InstallEPEL
+        action: ExecuteBash
+        inputs:
+          commands:
             - curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-            - sudo yum install -y epel-release-latest-7.noarch.rpm
-            - sudo yum install -y ansible
+            - yum install -y epel-release-latest-7.noarch.rpm
+
+    - name: InstallAnsible
+        action: ExecuteBash
+        inputs:
+          commands:
+            - yum install -y ansible
+
+    - name: RemoveEPEL
+      action: ExecuteBash
+      inputs:
+        commands:
+          - yum remove epel-release
+
+    - name: CloneRepo
+        action: ExecuteBash
+        inputs:
+          commands:
             - git clone https://github.com/willtome/ec2-image-build.git
-            - sudo ansible-playbook ec2-image-build/ansible/satellite.yml -e org_id={{rh_acct}}
+            - cd ec2-image-build
+            - ./scripts/install_collections.sh
+
+    - name: RunPlaybook
+        action: ExecuteBash
+        inputs:
+          commands:
+            - ansible-playbook ansible/satellite.yml -e org_id={{rh_acct}}
