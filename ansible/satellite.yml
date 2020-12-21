@@ -16,11 +16,7 @@
     yum:
       name: rh-amazon-rhui-client*
       state: removed
-
-  - name: yum clean all
-    command: yum clean all
-    changed_when: false
-
+      
   - name: configure product-id.conf
     copy:
       dest: /etc/yum/pluginconf.d/product-id.conf
