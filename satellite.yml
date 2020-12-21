@@ -5,6 +5,7 @@ constants:
   - rh_acct:
       type: string
       value: <org-id>
+
 phases:
   - name: build
     steps:
@@ -14,26 +15,26 @@ phases:
           commands:
             - yum install -y git
 
-    - name: InstallEPEL
+      - name: InstallEPEL
         action: ExecuteBash
         inputs:
           commands:
             - curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
             - yum install -y epel-release-latest-7.noarch.rpm
 
-    - name: InstallAnsible
+      - name: InstallAnsible
         action: ExecuteBash
         inputs:
           commands:
             - yum install -y ansible
 
-    - name: RemoveEPEL
-      action: ExecuteBash
-      inputs:
-        commands:
-          - yum remove epel-release
+      - name: RemoveEPEL
+        action: ExecuteBash
+        inputs:
+          commands:
+            - yum remove -y epel-release
 
-    - name: CloneRepo
+      - name: CloneRepo
         action: ExecuteBash
         inputs:
           commands:
@@ -41,8 +42,8 @@ phases:
             - cd ec2-image-build
             - ./scripts/install_collections.sh
 
-    - name: RunPlaybook
+      - name: RunPlaybook
         action: ExecuteBash
         inputs:
           commands:
-            - ansible-playbook ansible/satellite.yml -e org_id={{rh_acct}}
+            - ansible-playbook ec2-image-build/ansible/satellite.yml -e org_id={{rh_acct}}
