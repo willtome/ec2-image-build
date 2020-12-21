@@ -1,0 +1,65 @@
+---
+- hosts: localhost
+  tasks:
+  - name: set hostname
+    hostname:
+      name: satellite.example.com
+
+  - name: update IPv4 /etc/hosts
+    copy:
+      dest: "/etc/hosts"
+      content: |
+        127.0.0.1 satellite.example.com satellite localhost localhost.localdomain localhost4 localhost4.localdomain4
+        ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6 
+  
+  - name: remove rhui repos
+    yum:
+      name: rh-amazon-rhui-client*
+      state: removed
+
+  - name: yum clean all
+    command: yum clean all
+    changed_when: false
+
+  - name: configure product-id.conf
+    copy:
+      dest: /etc/yum/pluginconf.d/product-id.conf
+      content: |
+        [main]
+        enabled=1
+
+  - name: subscription manager
+    redhat_subscription:
+      state: present
+      activationkey: AWS
+      org_id: "{{ org_id }}"
+      auto_attach: true
+
+  - name: installer repos
+    rhsm_repository:
+      name: 
+        - rhel-server-rhscl-7-rpms
+        - rhel-7-server-satellite-maintenance-6-rpms
+        - rhel-7-server-satellite-6.8-rpms
+        - rhel-7-server-rpms
+        - rhel-7-server-ansible-2.9-rpms
+      state: enabled
+      purge: yes
+
+  - name: installer package
+    yum:
+      name: satellite
+      state: latest
+
+  - name: install chrony
+    include_role:
+      name: oasis_roles.system.chrony
+
+  - name: run installer
+    include_role:
+      name: theforeman.operations.installer
+    vars:
+      installer_scenario: satellite
+      installer_options:
+          - '--foreman-initial-admin-password Ansible123'
+      installer_command: satellite-installer

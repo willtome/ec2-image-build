@@ -1,0 +1,20 @@
+name: Satellite
+description: Install Red Hat Satellite
+schemaVersion: 1.0
+constants:
+  - rh_acct:
+      type: string
+      value: <org-id>
+phases:
+  - name: build
+    steps:
+      - name: InstallPackage
+        action: ExecuteBash
+        inputs:
+          commands:
+            - sudo yum install -y git, wget
+            - curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+            - sudo yum install -y epel-release-latest-7.noarch.rpm
+            - sudo yum install -y ansible
+            - git clone https://github.com/willtome/ec2-image-build.git
+            - sudo ansible-playbook ec2-image-build/ansible/satellite.yml -e org_id={{rh_acct}}
