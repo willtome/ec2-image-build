@@ -2,5 +2,7 @@
 collections:
   - name: theforeman.operations
     version: 0.1.0
+  - name: theforeman.foreman
+    version: 1.5.1
   - name: oasis_roles.system
     version: 1.1.2

@@ -1,0 +1,9 @@
+---
+satellite_infra_workloads:
+  - theforeman.foreman.manifest
+
+server_url: https://satellite.example.com
+username: admin
+password: "{{ sat_pass }}"
+organization: "Default"
+manifest_path: "/tmp/manifest.zip"

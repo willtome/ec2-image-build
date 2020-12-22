@@ -63,7 +63,7 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-            - ansible-playbook ec2-image-build/ansible/satellite.yml -e org_id={{rh_acct}}
+            - ansible-playbook ec2-image-build/ansible/satellite.yml -e org_id={{rh_acct}} - e post_config=sat_repos
 
       - name: DeleteGitRepo
         action: DeleteFolder

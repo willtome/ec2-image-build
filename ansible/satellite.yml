@@ -1,5 +1,8 @@
 ---
 - hosts: localhost
+  vars_files:
+    - vars/{{ post_config }}.yml
+
   tasks:
   - name: set hostname
     hostname:
@@ -51,11 +54,23 @@
     include_role:
       name: oasis_roles.system.chrony
 
+  - name: set sat_pass
+    set_fact:
+      sat_pass: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
+
   - name: run installer
     include_role:
       name: theforeman.operations.installer
     vars:
       installer_scenario: satellite
       installer_options:
-          - '--foreman-initial-admin-password Ansible123'
+          - "--foreman-initial-admin-password {{ sat_pass }}"
       installer_command: satellite-installer
+
+  - name: Deploy satellite_infra workloads
+    include_role:
+      name: "{{ satellite_infra_vars }}"
+    loop: "{{ satellite_infra_workloads }}"
+    loop_control:
+      loop_var: satellite_infra_vars
+    when: satellite_infra_workloads | d("") | length >0
