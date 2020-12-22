@@ -45,8 +45,8 @@ phases:
         inputs:
           commands:
             - git clone https://github.com/willtome/ec2-image-build.git
-            - cd ec2-image-build
-            - ./scripts/install_collections.sh
+            #- cd ec2-image-build
+            #- ./scripts/install_collections.sh
 
       - name: RemoveEPEL
         action: ExecuteBash

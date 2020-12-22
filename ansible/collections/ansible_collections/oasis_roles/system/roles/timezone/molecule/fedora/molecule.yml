@@ -1,0 +1,9 @@
+driver:
+  name: docker
+platforms:
+  - name: timezone_fedora
+    image: fedora:latest
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /usr/lib/systemd/systemd --system

@@ -1,9 +1,25 @@
 ---
 satellite_infra_workloads:
   - theforeman.foreman.manifest
+  - theforeman.foreman.repositories
 
 server_url: https://satellite.example.com
 username: admin
 password: "{{ sat_pass }}"
-organization: "Default"
+organization: "Default Organization"
+
 manifest_path: "/tmp/manifest.zip"
+
+products:
+  - name: Red Hat Enterprise Linux Server
+    repository_sets:
+      - name: Red Hat Enterprise Linux 7 Server (RPMs)
+        basearch: x86_64
+        releasever: 7Server
+      - name: Red Hat Enterprise Linux 6 Server - Extended Life Cycle Support (RPMs)
+        basearch: x86_64
+        releasever: 6Server
+      - name: Red Hat Enterprise Linux 7 Server - Extras (RPMs)
+        basearch: x86_64
+      - name: Red Hat Enterprise Linux 7 Server - Optional (RPMs)
+        basearch: x86_64

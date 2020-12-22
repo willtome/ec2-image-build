@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: passwordless_ssh_docker
+    image: centos:7
