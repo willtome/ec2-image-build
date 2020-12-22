@@ -18,9 +18,9 @@ products:
         releasever: 7Server
       - name: Red Hat Enterprise Linux 7 Server - Extras (RPMs)
         basearch: x86_64
+      - name: Red Hat Enterprise Linux 6 Server - Extras (RPMs)
+        basearch: x86_64
   - name: Red Hat Enterprise Linux Server - Extended Life Cycle Support
     repository_sets:
       - name: Red Hat Enterprise Linux 6 Server - Extended Life Cycle Support (RPMs)
-        basearch: x86_64
-      - name: Red Hat Enterprise Linux 6 Server - Extras (RPMs)
         basearch: x86_64
