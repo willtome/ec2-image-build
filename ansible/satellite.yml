@@ -7,18 +7,24 @@
   - name: set hostname
     hostname:
       name: satellite.example.com
+    tags:
+      - pre_task
 
   - name: update IPv4 /etc/hosts
     copy:
       dest: "/etc/hosts"
       content: |
         127.0.0.1 satellite.example.com satellite localhost localhost.localdomain localhost4 localhost4.localdomain4
-        ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6 
+        ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6
+    tags:
+      - pre_task
   
   - name: remove rhui repos
     yum:
       name: rh-amazon-rhui-client*
       state: removed
+    tags:
+      - pre_task
       
   - name: configure product-id.conf
     copy:
@@ -26,6 +32,8 @@
       content: |
         [main]
         enabled=1
+    tags:
+      - pre_task
 
   - name: subscription manager
     redhat_subscription:
@@ -33,6 +41,8 @@
       activationkey: AWS
       org_id: "{{ org_id }}"
       auto_attach: true
+    tags:
+      - pre_task
 
   - name: installer repos
     rhsm_repository:
@@ -44,19 +54,27 @@
         - rhel-7-server-ansible-2.9-rpms
       state: enabled
       purge: yes
+    tags:
+      - pre_task
 
   - name: installer package
     yum:
       name: satellite
       state: latest
+    tags:
+      - pre_task
 
   - name: install chrony
     include_role:
       name: oasis_roles.system.chrony
+    tags:
+      - software
 
   - name: set sat_pass
     set_fact:
       sat_pass: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
+    tags:
+      - software
 
   - name: run installer
     include_role:
@@ -66,6 +84,8 @@
       installer_options:
           - "--foreman-initial-admin-password {{ sat_pass }}"
       installer_command: satellite-installer
+    tags:
+      - software
 
   - name: Deploy satellite_infra workloads
     include_role:
@@ -74,3 +94,5 @@
     loop_control:
       loop_var: satellite_infra_vars
     when: satellite_infra_workloads | d("") | length >0
+    tags:
+      - post_software
