@@ -22,5 +22,5 @@ products:
     repository_sets:
       - name: Red Hat Enterprise Linux 6 Server - Extended Life Cycle Support (RPMs)
         basearch: x86_64
-      - name: Red Hat Enterprise Linux 6 Server - Extended Life Cycle Support - Optional (RPMs)
+      - name: Red Hat Enterprise Linux 6 Server - Extras (RPMs)
         basearch: x86_64
