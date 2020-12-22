@@ -9,6 +9,19 @@ constants:
 phases:
   - name: build
     steps:
+      - name: DownloadManifest
+        action: S3Download
+        inputs:
+          - source: s3://ec2imagebuilder-wtome/manifest.zip
+            destination: /tmp/manifest.zip
+
+      - name: DownloadEPEL
+        action: WebDownload
+        maxAttempts: 3
+        inputs:
+          - source: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+            destination: /tmp/epel-release-latest-7.noarch.rpm
+
       - name: InstallGit
         action: ExecuteBash
         inputs:
@@ -19,20 +32,13 @@ phases:
         action: ExecuteBash
         inputs:
           commands:
-            - curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-            - yum install -y epel-release-latest-7.noarch.rpm
+            - yum install -y /tmp/epel-release-latest-7.noarch.rpm
 
       - name: InstallAnsible
         action: ExecuteBash
         inputs:
           commands:
             - yum install -y ansible
-
-      - name: RemoveEPEL
-        action: ExecuteBash
-        inputs:
-          commands:
-            - yum remove -y epel-release
 
       - name: CloneRepo
         action: ExecuteBash
@@ -42,8 +48,30 @@ phases:
             - cd ec2-image-build
             - ./scripts/install_collections.sh
 
+      - name: RemoveEPEL
+        action: ExecuteBash
+        inputs:
+          commands:
+            - yum remove -y epel-release
+
+      - name: DeleteEPEL
+        action: DeleteFile
+        inputs:
+          - path: /tmp/epel-release-latest-7.noarch.rpm
+
       - name: RunPlaybook
         action: ExecuteBash
         inputs:
           commands:
             - ansible-playbook ec2-image-build/ansible/satellite.yml -e org_id={{rh_acct}}
+
+      - name: DeleteGitRepo
+        action: DeleteFolder
+        inputs:
+          - path: /tmp/ec2-image-build
+            force: true
+
+      - name: DeleteManifest
+        action: DeleteFile
+        inputs:
+          - path: /tmp/manifest.zip
