@@ -3,7 +3,7 @@ satellite_infra_workloads:
   - theforeman.foreman.manifest
   - theforeman.foreman.repositories
 
-server_url: https://"{{ ansible_fqdn }}"
+server_url: "https://{{ ansible_fqdn }}"
 username: admin
 password: "{{ sat_pass }}"
 organization: "Default Organization"
