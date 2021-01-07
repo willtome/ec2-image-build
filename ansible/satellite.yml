@@ -4,20 +4,20 @@
     - vars/sat_repos.yml
 
   tasks:
-  - name: set hostname
-    hostname:
-      name: satellite.example.com
-    tags:
-      - pre_task
+  #- name: set hostname
+  #  hostname:
+  #    name: satellite.example.com
+  #  tags:
+  #    - pre_task
 
-  - name: update IPv4 /etc/hosts
-    copy:
-      dest: "/etc/hosts"
-      content: |
-        127.0.0.1 satellite.example.com satellite localhost localhost.localdomain localhost4 localhost4.localdomain4
-        ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6
-    tags:
-      - pre_task
+  #- name: update IPv4 /etc/hosts
+  #  copy:
+  #    dest: "/etc/hosts"
+  #    content: |
+  #      127.0.0.1 satellite.example.com satellite localhost localhost.localdomain localhost4 localhost4.localdomain4
+  #      ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6
+  #  tags:
+  #    - pre_task
   
   - name: remove rhui repos
     yum:
@@ -72,7 +72,7 @@
 
   - name: set sat_pass
     set_fact:
-      sat_pass: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
+      sat_pass: satellite123 #"{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
     tags:
       - software
 
