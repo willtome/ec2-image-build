@@ -18,6 +18,10 @@
   #      ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6
   #  tags:
   #    - pre_task
+  - name: set SELinux to permissive
+    selinux:
+      policy: targeted
+      state: permissive
   
   - name: remove rhui repos
     yum:
