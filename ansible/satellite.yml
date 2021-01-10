@@ -4,25 +4,38 @@
     - vars/sat_repos.yml
 
   tasks:
-  #- name: set hostname
-  #  hostname:
-  #    name: satellite.example.com
-  #  tags:
-  #    - pre_task
-
-  #- name: update IPv4 /etc/hosts
-  #  copy:
-  #    dest: "/etc/hosts"
-  #    content: |
-  #      127.0.0.1 satellite.example.com satellite localhost localhost.localdomain localhost4 localhost4.localdomain4
-  #      ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6
-  #  tags:
-  #    - pre_task
   - name: set SELinux to permissive
     selinux:
       policy: targeted
       state: permissive
-  
+    tags:
+     - pre_task
+
+  - name: set hostname
+    hostname:
+      name: satellite.example.com
+    tags:
+      - pre_task
+
+  - name: update IPv4 /etc/hosts
+    copy:
+      dest: "/etc/hosts"
+      content: |
+        127.0.0.1 satellite.example.com satellite localhost localhost.localdomain localhost4 localhost4.localdomain4
+        ::1 satellite.example.com satellite localhost localhost.localdomain localhost6 localhost6.localdomain6
+    tags:
+      - pre_task
+
+  - name: preserve hostname
+    copy:
+      dest: /etc/cloud/cloud.cfg.d/01_hostname.cfg
+      content: |
+        manage_etc_hosts: true
+        preserve_hostname: true
+        fqdn: satellite.example.com
+    tags:
+      - pre_task
+
   - name: remove rhui repos
     yum:
       name: rh-amazon-rhui-client*
@@ -100,3 +113,13 @@
     when: satellite_infra_workloads | d("") | length >0
     tags:
       - post_software
+
+  - name: preserve hostname
+    copy:
+      dest: /etc/motd
+      content: |
+        ######################################
+        ## Login with Password "{{ sat_pass }}" ##
+        ##########################################
+    tags:
+     - post_software
