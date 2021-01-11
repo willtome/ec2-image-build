@@ -78,7 +78,7 @@ phases:
   
   - name: validate
     steps:
-      - name: run health check
+      - name: RunHealthCheck
         action: ExecuteBash
         inputs:
           commands:
