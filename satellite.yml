@@ -75,3 +75,11 @@ phases:
         action: DeleteFile
         inputs:
           - path: /tmp/manifest.zip
+  
+  - name: validate
+    steps:
+      - name: run health check
+        action: ExecuteBash
+        inputs:
+          commands:
+            - satellite-maintain health check

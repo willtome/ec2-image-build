@@ -114,12 +114,21 @@
     tags:
       - post_software
 
+  # work around for https://bugzilla.redhat.com/show_bug.cgi?id=1791340
+  - name: workaround for bug 1791340
+    lineinfile:
+      path: /opt/theforeman/tfm/root/usr/share/gems/gems/smart_proxy_dynflow_core-0.2.6/smart_proxy_dynflow_core.gemspec
+      regexp: gem.authors
+      line: "  gem.authors       = ['Ivan Necas']"
+    tags:
+     - pos_software
+
   - name: preserve hostname
     copy:
       dest: /etc/motd
       content: |
-        ######################################
-        ## Login with Password "{{ sat_pass }}" ##
-        ##########################################
+        #########################################
+        ## Login with Password {{ sat_pass }} ##
+        #########################################
     tags:
      - post_software
