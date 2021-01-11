@@ -42,6 +42,8 @@ phases:
 
       - name: CloneRepo
         action: ExecuteBash
+        timeoutSeconds: -1
+        maxAttempts: 3
         inputs:
           commands:
             - git clone https://github.com/willtome/ec2-image-build.git
