@@ -90,12 +90,9 @@
     server_url: "{{ server_url }}"
     validate_certs: "{{ validate_certs | default(omit) }}"
     organization: "{{ organization }}"
-    product: "{{ item.0.name }}"
-    repository: "{{ item.1.name }}"
-  with_subelements:
-    - "{{ products | selectattr('repository_sets', 'defined') | list }}"
-    - repository_sets
-  when: item.0.sync | default(false) | bool
+    product: "{{ item.name }}"
+  loop: "{{ products }}"
+  when: item.sync | default(false) | bool
   async: 999999
   poll: 0
   register: repo_sync_sleeper
