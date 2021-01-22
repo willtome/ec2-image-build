@@ -55,7 +55,7 @@
   - name: subscription manager
     redhat_subscription:
       state: present
-      activationkey: AWS
+      activationkey: AK_RHEL
       org_id: "{{ org_id }}"
       auto_attach: true
     tags:
@@ -113,6 +113,9 @@
     when: satellite_infra_workloads | d("") | length >0
     tags:
       - post_software
+
+  - name: install default scap content
+    command: foreman-rake foreman_openscap:bulk_upload:default
 
   # work around for https://bugzilla.redhat.com/show_bug.cgi?id=1791340
   - name: workaround for bug 1791340
