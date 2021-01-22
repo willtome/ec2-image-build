@@ -1,9 +1,9 @@
 ---
 satellite_infra_workloads:
-  - theforeman.foreman.manifest
+  #- theforeman.foreman.manifest
   - theforeman.foreman.repositories
 
-server_url: "https://{{ ansible_fqdn }}"
+#server_url: "https://{{ ansible_fqdn }}"
 username: admin
 password: "{{ sat_pass }}"
 organization: "Default Organization"
@@ -12,6 +12,14 @@ validate_certs: false
 manifest_path: "/tmp/manifest.zip"
 
 products:
+  - name: Red Hat Enterprise Linux for x86_64
+    sync: true
+    repository_sets:
+      - name: Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
+        releasever: 8
+      - name: Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
+        releasever: 8
+      - name: Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 (RPMs)
   - name: Red Hat Enterprise Linux Server
     sync: true
     repository_sets:
@@ -21,6 +29,10 @@ products:
       - name: Red Hat Enterprise Linux 7 Server - Extras (RPMs)
         basearch: x86_64
       - name: Red Hat Enterprise Linux 6 Server - Extras (RPMs)
+        basearch: x86_64
+      - name: Red Hat Satellite Tools 6.8 (for RHEL 7 Server) (RPMs)
+        basearch: x86_64
+      - name: Red Hat Satellite Tools 6.8 (for RHEL 6 Server) (RPMs)
         basearch: x86_64
   - name: Red Hat Enterprise Linux Server - Extended Life Cycle Support
     sync: true
