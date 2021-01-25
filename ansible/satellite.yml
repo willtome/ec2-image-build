@@ -55,7 +55,7 @@
   - name: subscription manager
     redhat_subscription:
       state: present
-      activationkey: AK_RHEL
+      activationkey: AK-Sat
       org_id: "{{ org_id }}"
       auto_attach: true
     tags:
