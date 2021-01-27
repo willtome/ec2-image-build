@@ -34,8 +34,8 @@ products:
         basearch: x86_64
       - name: Red Hat Satellite Tools 6.8 (for RHEL 6 Server) (RPMs)
         basearch: x86_64
-  - name: Red Hat Enterprise Linux Server - Extended Life Cycle Support
-    sync: true
-    repository_sets:
-      - name: Red Hat Enterprise Linux 6 Server - Extended Life Cycle Support (RPMs)
-        basearch: x86_64
+  #- name: Red Hat Enterprise Linux Server - Extended Life Cycle Support
+  #  sync: true
+  #  repository_sets:
+  #    - name: Red Hat Enterprise Linux 6 Server - Extended Life Cycle Support (RPMs)
+  #      basearch: x86_64
