@@ -126,7 +126,7 @@
     tags:
      - pos_software
 
-  - name: preserve hostname
+  - name: motd
     copy:
       dest: /etc/motd
       content: |
@@ -135,3 +135,7 @@
         #########################################
     tags:
      - post_software
+     
+  - name: unregister
+    redhat_subscription:
+      state: absent
