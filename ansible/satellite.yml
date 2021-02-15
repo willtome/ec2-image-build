@@ -136,6 +136,9 @@
     tags:
      - post_software
      
+  - name: disconnected mode
+    command: '/bin/hammer settings set --name content_disconnected --value true'
+    
   - name: unregister
     redhat_subscription:
       state: absent
