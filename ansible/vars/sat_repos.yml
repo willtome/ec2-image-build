@@ -46,6 +46,11 @@ products:
       - name: CentOS-7 - Server RPMs x86_64
         content_type: yum
         url: http://mirror.centos.org/centos/7/extras/x86_64/
+  - name: Extra Packages for Enterprise Linux 7
+    repositories:
+      - name:  Extra Packages for Enterprise Linux 7 x86_64
+        content_type: yum
+        url: https://download.fedoraproject.org/pub/epel/7/x86_64/
   - name: Foreman Client
     sync: true
     repositories:
