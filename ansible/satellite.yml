@@ -135,9 +135,10 @@
         #########################################
     tags:
      - post_software
-     
+   
+  # https://projects.theforeman.org/issues/10266
   - name: disconnected mode
-    command: "/bin/hammer --server https://satellite.example.com --username admin --password {{ sat_pass }} settings set --name content_disconnected --value true"
+    command: "HOME=/root hammer settings set --name content_disconnected --value true"
     
   - name: unregister
     redhat_subscription:
