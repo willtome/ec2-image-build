@@ -137,7 +137,7 @@
      - post_software
      
   - name: disconnected mode
-    command: '/bin/hammer settings set --name content_disconnected --value true'
+    command: "/bin/hammer --server https://satellite.example.com --username admin --password {{ sat_pass }} settings set --name content_disconnected --value true"
     
   - name: unregister
     redhat_subscription:
