@@ -138,7 +138,9 @@
    
   # https://projects.theforeman.org/issues/10266
   - name: disconnected mode
-    command: "HOME=/root hammer settings set --name content_disconnected --value true"
+    command: 'hammer settings set --name content_disconnected --value true'
+    environment:
+      HOME: /root
     
   - name: unregister
     redhat_subscription:
