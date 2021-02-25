@@ -12,45 +12,46 @@ validate_certs: false
 manifest_path: "/tmp/manifest.zip"
 
 products:
-  - name: Red Hat Enterprise Linux for x86_64
-    sync: true
-    repository_sets:
-      - name: Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
-        releasever: 8
-      - name: Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
-        releasever: 8
-      - name: Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 (RPMs)
-  - name: Red Hat Enterprise Linux Server
-    sync: true
-    repository_sets:
-      - name: Red Hat Enterprise Linux 7 Server (RPMs)
-        basearch: x86_64
-        releasever: 7Server
-      - name: Red Hat Enterprise Linux 7 Server - Extras (RPMs)
-        basearch: x86_64
-      - name: Red Hat Enterprise Linux 6 Server - Extras (RPMs)
-        basearch: x86_64
-      - name: Red Hat Satellite Tools 6.8 (for RHEL 7 Server) (RPMs)
-        basearch: x86_64
-      - name: Red Hat Satellite Tools 6.8 (for RHEL 6 Server) (RPMs)
-        basearch: x86_64
-  - name: Community Enterprise OS 7
-    sync: true
-    repositories:
-      - name: CentOS-7 - Base RPMs x86_64
-        content_type: yum
-        url: http://mirror.centos.org/centos/7/os/x86_64/
-      - name: CentOS-7 - Updates RPMs x86_64
-        content_type: yum
-        url: http://mirror.centos.org/centos/7/updates/x86_64/
-      - name: CentOS-7 - Server RPMs x86_64
-        content_type: yum
-        url: http://mirror.centos.org/centos/7/extras/x86_64/
-  - name: Extra Packages for Enterprise Linux 7
-    repositories:
-      - name:  Extra Packages for Enterprise Linux 7 x86_64
-        content_type: yum
-        url: https://download.fedoraproject.org/pub/epel/7/x86_64/
+  #- name: Red Hat Enterprise Linux for x86_64
+  #  sync: true
+  #  repository_sets:
+  #    - name: Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)
+  #      releasever: 8
+  #    - name: Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
+  #      releasever: 8
+  #    - name: Red Hat Satellite Tools 6.8 for RHEL 8 x86_64 (RPMs)
+  #- name: Red Hat Enterprise Linux Server
+  #  sync: true
+  #  repository_sets:
+  #    - name: Red Hat Enterprise Linux 7 Server (RPMs)
+  #      basearch: x86_64
+  #      releasever: 7Server
+  #    - name: Red Hat Enterprise Linux 7 Server - Extras (RPMs)
+  #      basearch: x86_64
+  #    - name: Red Hat Enterprise Linux 6 Server - Extras (RPMs)
+  #      basearch: x86_64
+  #    - name: Red Hat Satellite Tools 6.8 (for RHEL 7 Server) (RPMs)
+  #      basearch: x86_64
+  #    - name: Red Hat Satellite Tools 6.8 (for RHEL 6 Server) (RPMs)
+  #      basearch: x86_64
+  #- name: Community Enterprise OS 7
+  #  sync: true
+  #  repositories:
+  #    - name: CentOS-7 - Base RPMs x86_64
+  #      content_type: yum
+  #      url: http://mirror.centos.org/centos/7/os/x86_64/
+  #    - name: CentOS-7 - Updates RPMs x86_64
+  #      content_type: yum
+  #      url: http://mirror.centos.org/centos/7/updates/x86_64/
+  #    - name: CentOS-7 - Server RPMs x86_64
+  #      content_type: yum
+  #      url: http://mirror.centos.org/centos/7/extras/x86_64/
+  #- name: Extra Packages for Enterprise Linux 7
+  #  sync: true
+  #  repositories:
+  #    - name:  Extra Packages for Enterprise Linux 7 x86_64
+  #      content_type: yum
+  #      url: https://download.fedoraproject.org/pub/epel/7/x86_64/
   - name: Foreman Client
     sync: true
     repositories:
