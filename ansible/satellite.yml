@@ -114,6 +114,10 @@
     theforeman.foreman.subscription_manifest:
       organization: "Default Organization"
       state: refreshed
+      server_url: "{{ server_url }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      validate_certs: no
     async: 2000
     poll: 60
     tags:
