@@ -103,6 +103,13 @@
       installer_command: satellite-installer
     tags:
       - software
+  
+  - name: refresh manifest
+    theforeman.foreman.subscription_manifest:
+      organization: "Default Organization"
+      state: refreshed
+    async: 2000
+    poll: 60
 
   - name: Deploy satellite_infra workloads
     include_role:
